@@ -66,7 +66,8 @@ class GAAPI(object):
 
         return None
 
-    def callAPI(self, date_from, date_to, metrics='ga:sessions', dimensions=None, sort=None, filters=None):
+    def callAPI(self, date_from, date_to, metrics='ga:sessions', dimensions=None, sort=None, filters=None,
+                segment=None, sampling_level=None, start_index=None, max_results=None, output=None, fields=None):
 
         if self.profile_id is None:
             return None
@@ -78,9 +79,15 @@ class GAAPI(object):
             "metrics": metrics,
         }
 
-        dimensions is not None and params.update(dimensions=dimensions)
-        sort is not None and params.update(sort=sort)
-        filters is not None and params.update(filters=filters)
+        dimensions is not None and params.update({"dimensions": dimensions})
+        sort is not None and params.update({"sort": sort})
+        filters is not None and params.update({"filters": filters})
+        segment is not None and params.update({"segment": segment})
+        sampling_level is not None and params.update({"samplingLevel": sampling_level})
+        start_index is not None and params.update({"start-index": start_index})
+        max_results is not None and params.update({"max-results": max_results})
+        output is not None and params.update({"output": output})
+        fields is not None and params.update({"fields": fields})
 
         return self.service.data().ga().get(**params).execute()
 
