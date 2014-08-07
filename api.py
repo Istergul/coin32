@@ -1,11 +1,8 @@
 #coding=utf-8
-import pprint
 import httplib2
-import datetime
 
-from apiclient.errors import HttpError
 from apiclient.discovery import build
-from oauth2client.client import OAuth2WebServerFlow, AccessTokenRefreshError
+from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.file import Storage
 from oauth2client.tools import run
 
@@ -90,30 +87,3 @@ class GAAPI(object):
         fields is not None and params.update({"fields": fields})
 
         return self.service.data().ga().get(**params).execute()
-
-
-def main():
-
-    try:
-        client_id = "911007141855-a4rp0airq4djqlqg36esk1eujo6db8fh.apps.googleusercontent.com"
-        client_secret = "bltQmWD_ElJQwzi7I8PAOsgo"
-        api = GAAPI(client_id, client_secret)
-        date_from = datetime.date.today() - datetime.timedelta(days=10)
-        date_to = datetime.date.today()
-
-        res = api.callAPI(date_from, date_to, dimensions="ga:browser,ga:city", filters="ga:browser==Firefox")
-        pprint.pprint(res)
-
-    except TypeError as error:
-        print ('There was an error in constructing your query : %s' % error)
-    except HttpError as error:
-        print ('Arg, there was an API error : %s : %s' % (error.resp.status, error._get_reason()))
-    except AccessTokenRefreshError:
-        print ('The credentials have been revoked or expired, please re-run the application to re-authorize')
-
-# http://localhost:8080/?code=4/o8MhTfjtVp2TgvySp7Rf2RPWt7Ax.gsy34lo2n3UZYFZr95uygvXDyBRXjwI
-
-
-if __name__ == "__main__":
-    main()
-

@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="coin32 0.1 documentation" href="index.html" />
-    <link rel="prev" title="Зарос" href="request.html" /> 
+    <link rel="prev" title="Запрос" href="request.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,7 +34,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="request.html" title="Зарос"
+          <a href="request.html" title="Запрос"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">coin32 0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -47,6 +47,208 @@
             
   <div class="section" id="id1">
 <h1>Ответ<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>В случае успеха, запрос возвращает тело ответа с JSON-структурой, определенной ниже. Если output параметр
+установлен в dataTable, то запрос возвращает тело ответа с JSON (Data Table).</p>
+<p>Термин &#8220;результаты&#8221; относится ко всему набору строк, соответствующих запросу, в то время как &#8220;ответ&#8221; относится к
+набору строк, возвращаемых на текущей странице результатов. Они могут быть различными, если суммарное число
+результата больше, чем размер страницы для рекущего ответа, как объяснено в itemsPerPage.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;kind&quot;</span><span class="o">:</span> <span class="s2">&quot;analytics#gaData&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="s2">&quot;selfLink&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="s2">&quot;containsSampledData&quot;</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">,</span>
+  <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;start-date&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;end-date&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;ids&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;dimensions&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="nx">string</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;metrics&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="nx">string</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;samplingLevel&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;sort&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="nx">string</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;filters&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;segment&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;start-index&quot;</span><span class="o">:</span> <span class="nx">integer</span><span class="p">,</span>
+    <span class="s2">&quot;max-results&quot;</span><span class="o">:</span> <span class="nx">integer</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;itemsPerPage&quot;</span><span class="o">:</span> <span class="nx">integer</span><span class="p">,</span>
+  <span class="s2">&quot;totalResults&quot;</span><span class="o">:</span> <span class="nx">integer</span><span class="p">,</span>
+  <span class="s2">&quot;previousLink&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="s2">&quot;nextLink&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="s2">&quot;profileInfo&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;profileId&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;accountId&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;webPropertyId&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;internalWebPropertyId&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;profileName&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s2">&quot;tableId&quot;</span><span class="o">:</span> <span class="nx">string</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;columnHeaders&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+      <span class="s2">&quot;columnType&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+      <span class="s2">&quot;dataType&quot;</span><span class="o">:</span> <span class="nx">string</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;rows&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">[</span>
+      <span class="nx">string</span>
+    <span class="p">]</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;sampleSize&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="s2">&quot;sampleSpace&quot;</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="s2">&quot;totalsForAllResults&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">metricName</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+      <span class="p">...</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Поля ответа</strong></p>
+<p>Свойства структуры тела ответа:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="10%" />
+<col width="62%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Имя свойства</td>
+<td>Значение</td>
+<td>Описание</td>
+</tr>
+<tr class="row-even"><td>kind</td>
+<td>строка</td>
+<td>Тип ресурса. Значение &#8220;analytics#gaData&#8221;.</td>
+</tr>
+<tr class="row-odd"><td>id</td>
+<td>строка</td>
+<td>ID для этого ресурса данных.</td>
+</tr>
+<tr class="row-even"><td>query</td>
+<td>объект</td>
+<td>Объект, который содержит все значения, переданные в качестве параметров
+запроса. Каждое поле соответствует каждому параметру запроса.</td>
+</tr>
+<tr class="row-odd"><td>startIndex</td>
+<td>целое</td>
+<td>Начальный индекс строк, заданный параметром start-index. По умолчанию
+1.</td>
+</tr>
+<tr class="row-even"><td>itemsPerPage</td>
+<td>целое</td>
+<td>Максимальное количество строк на страницу, не зависимо от фактического
+каличества возвращаемых строк. Если параметр max-results указан,
+значение itemsPerPage является меньше max-results или 10 000. По
+умолчанию itemsPerPage 1 000.</td>
+</tr>
+<tr class="row-odd"><td>totalResults</td>
+<td>целое</td>
+<td>Общее количество строк в результате запроса вне зависимости от
+количества строк, возвращаемых в ответ. Для запросов, которые приводят
+к большому количеству строк, totalResults может быть больше, чем
+itemsPerPage.</td>
+</tr>
+<tr class="row-even"><td>startDate</td>
+<td>строка</td>
+<td>Начальная дата для запроса, указанная в start-date параметре.</td>
+</tr>
+<tr class="row-odd"><td>endDate</td>
+<td>строка</td>
+<td>Конечная дата для запроса, указанная в end-date параметре.</td>
+</tr>
+<tr class="row-even"><td>selfLink</td>
+<td>строка</td>
+<td>Ссылка на страницу с результатами.</td>
+</tr>
+<tr class="row-odd"><td>previousLink</td>
+<td>строка</td>
+<td>Ссылка на предыдущую страницу с результатами.</td>
+</tr>
+<tr class="row-even"><td>nextLink</td>
+<td>строка</td>
+<td>Ссылка на следующую страницу с результатами.</td>
+</tr>
+<tr class="row-odd"><td>profileInfo</td>
+<td>объект</td>
+<td>Информация о профиле запрашивающего.</td>
+</tr>
+<tr class="row-even"><td>profileInfo.profileId</td>
+<td>строка</td>
+<td>ID профиля</td>
+</tr>
+<tr class="row-odd"><td>profileInfo.accountId</td>
+<td>строка</td>
+<td>ID аккаунта</td>
+</tr>
+<tr class="row-even"><td>profileInfo.webPropertyId</td>
+<td>строка</td>
+<td>Web Property ID, к которому принадлежит профиль.</td>
+</tr>
+<tr class="row-odd"><td>profileInfo.internalWebPropertyId</td>
+<td>строка</td>
+<td>Внутренний ID веб-ресурса, к которому принадлежит профиль.</td>
+</tr>
+<tr class="row-even"><td>profileInfo.profileName</td>
+<td>строка</td>
+<td>Имя профиля</td>
+</tr>
+<tr class="row-odd"><td>profileInfo.tableId</td>
+<td>строка</td>
+<td>Table ID профиля.</td>
+</tr>
+<tr class="row-even"><td>containsSampledData</td>
+<td>беулево</td>
+<td>True, если ответ содержит образцовые данные.</td>
+</tr>
+<tr class="row-odd"><td>sampleSize</td>
+<td>строка</td>
+<td>Количество образцов, используемых для вычисления образцовых данных.</td>
+</tr>
+<tr class="row-even"><td>sampleSpace</td>
+<td>строка</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>columnHeaders[]</td>
+<td>список</td>
+<td>Заголовки столбцов, которые перечисляют имена измерений, следующих за
+именами метрик. Порядок измерений и метрик является таким же, который
+указан в запросе.</td>
+</tr>
+<tr class="row-even"><td>columnHeaders[].name</td>
+<td>строка</td>
+<td>Имя разрешения или метрики.</td>
+</tr>
+<tr class="row-odd"><td>columnHeaders[].columnType</td>
+<td>строка</td>
+<td>Тип колонки. DIMENSION или METRIC.</td>
+</tr>
+<tr class="row-even"><td>columnHeaders[].dataType</td>
+<td>строка</td>
+<td>Тип данных. Колонка с разрешением может иметь только STRING тип данных.
+Колонка с метрикой может иметь такие типы как INTEGER, FLOAT и CURRENCY
+и т. д.</td>
+</tr>
+<tr class="row-odd"><td>totalsForAllResults</td>
+<td>объект</td>
+<td>Общие значения данных запрашиваемых метрик, представляющие из себя пары
+ключ-значение с именем метрики и непосредственно значением.</td>
+</tr>
+<tr class="row-even"><td>rows[]</td>
+<td>список</td>
+<td>Строки с данными аналитики, где каждая строка содержит список значений
+измерений и метрик. Порядок измерений и метрик соответствует тому, как
+указано в запросе.</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
@@ -57,7 +259,7 @@
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="request.html"
-                        title="previous chapter">Зарос</a></p>
+                        title="previous chapter">Запрос</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/response.txt"
@@ -87,7 +289,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="request.html" title="Зарос"
+          <a href="request.html" title="Запрос"
              >previous</a> |</li>
         <li><a href="index.html">coin32 0.1 documentation</a> &raquo;</li> 
       </ul>
