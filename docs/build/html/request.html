@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Запрос &mdash; coin32 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="coin32 0.1 documentation" href="index.html" />
+    <link rel="next" title="Ответ" href="response.html" />
+    <link rel="prev" title="Welcome to coin32’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="response.html" title="Ответ"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to coin32’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">coin32 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>Запрос<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><strong>ids</strong> <em>(обязательно)</em></p>
+<blockquote>
+<div>Айдишники профилей.</div></blockquote>
+<p><strong>start_date</strong> <em>(обязательно)</em></p>
+<blockquote>
+<div>Дата начала.</div></blockquote>
+<p><strong>end_date</strong> <em>(обязательно)</em></p>
+<blockquote>
+<div>Дата конца.</div></blockquote>
+<p><strong>dimensions</strong></p>
+<blockquote>
+<div><p>Параметр разбивает метрики по основным критериям. Например, ga:browser или ga:city.
+К примеру, при запросе общего числа просмотров страниц сайта, можно разбить просмотры по браузерам.
+При использовании данного параметра, необходимо быть в курсе следующих ограничений:</p>
+<ul class="simple">
+<li>Можно указать максимум 7 вариантов данного параметра в запросе</li>
+<li>Нельзя послать запрос, состоящий только из dimensions.
+Необходимо совместить все запрашиваемые параметры, хотя бы для одной метрики.</li>
+<li>Только определенные dimensions могут быть запрошены в одном запросе.
+Для проверки валидности комбинации, можно использовать инструмент по следующей
+ссылке <a class="reference external" href="https://developers.google.com/analytics/devguides/reporting/core/dimsmets">https://developers.google.com/analytics/devguides/reporting/core/dimsmets</a></li>
+</ul>
+</div></blockquote>
+<p><strong>metrics</strong> <em>(обязательно)</em></p>
+<blockquote>
+<div><p>Статистические данные по активности пользователей на сайте. Например, клики или просмотры страниц.
+Если запрос не содержит параметра dimensions, возвращаемые метрики будут представлять совокупные значения
+на указанный диапазон дат. Однако, когда dimensions присутствует, полученные значения будут сегементированы по
+значениям dimensions. Например, ga:pageviews, запрошенный с ga:country, вернет совокупные значения просомтров
+по странам. При запросе metrics, необходимо учитывать:</p>
+<ul class="simple">
+<li>Любой запрос должен содержать не менее одной метрики.</li>
+<li>Нельзя подставлять более десяти метрик.</li>
+<li>Большинство комбинаций метрик из нескольких категорий могут быть использованы вместе,
+если не указан параметр dimensions.</li>
+<li>Metrics может быть использован только с определенными значениями dimensions или metrics. Доступные комбинации
+можно составлять с помощью инструмента по следующей ссылке
+<a class="reference external" href="https://developers.google.com/analytics/devguides/reporting/core/dimsmets">https://developers.google.com/analytics/devguides/reporting/core/dimsmets</a></li>
+</ul>
+</div></blockquote>
+<p><strong>sort</strong></p>
+<blockquote>
+<div><p>Перечень из значений параметров metrics и dimensions, указывающий на порядок сортировки для возвращаемых значений.</p>
+<ul class="simple">
+<li>Порядок сортировки задается слева направо.</li>
+<li>Сортировка по умолчанию задается как восходящая. Чтобы указать нисходящий порядок сортировки, необходимо указать
+префикс &#8220;-&#8221; перед запрашиваемым полем.</li>
+</ul>
+<p>Например, для того, чтобы ответить на вопрос, из каких стран чаще посещают сайт и с помощью каких браузеров это
+делают, необходимо указать <tt class="docutils literal"><span class="pre">sort=ga:country,ga:browser</span></tt>.</p>
+<p>При использовании параметра sort, необходимо иметь в виде следующие моменты:</p>
+<ul class="simple">
+<li>Сортировать можно только по значениям dimensions или metrics, которые были использованы в запросе.
+Если для сортировки используется поле, которого нет в указанных значениях dimensions или metrics, произойдет
+ошибка.</li>
+<li>По умолчанию, строки сортируются в алфавитном порядке в en-US локали. Числа и даты сортируются
+по возврастанию.</li>
+</ul>
+</div></blockquote>
+<p><strong>filters</strong></p>
+<blockquote>
+<div><p>Параметр filters ограничивает данные, возвращаемые запросом. Для использования параметра filters, необходимо
+указать dimensions или metrics и затем выражение фильтрации. Например, следующий запрос запрашивает
+ga:pageviews и ga:browser для профиля 12134, когда ga:browser dimension начинается со строки Firefox:</p>
+<div class="highlight-rest"><div class="highlight"><pre>https://www.googleapis.com/analytics/v3/data/ga
+?ids=ga:12134
+&amp;dimensions=ga:browser
+&amp;metrics=ga:pageviews
+&amp;filters=ga:browser%3D~%5EFirefox
+&amp;start-date=2007-01-01
+&amp;end-date=2007-12-31
+</pre></div>
+</div>
+<p>Отфильтрованные запросы органичивают строки, которые включаются (или исключаются) из запроса. Каждая строка
+результата сравнивается с фильтром, и если фильтр будет соответствовать, то строка сохраняется, а если не
+соответствует - отбрасывается.</p>
+<ul class="simple">
+<li><strong>URL кодирование:</strong> Клиентские библиотеки для Google API автоматически кодируют операторы фильтра.</li>
+<li><strong>Dimension фильтрация:</strong> Фильтрация происходит перед агрегацией данных, так что возвращаемые метрики
+агрегируют уже отфильтрованные данные.</li>
+<li><strong>Metrics фильтрация:</strong> Фильтрация метрик происходит после агрегации метрик.</li>
+<li><strong>Допустимые комбинации:</strong> Можно фильтровать по dimensions и metrics, которые не являются частью запроса, при
+условии, что они представляют собой допустимую комбинацию. Например, можно составить запрос с количеством
+просмотров страниц по списку дат, фильтруя по браузеру.</li>
+</ul>
+<p><strong>Операторы фильтрации для metrics</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="15%" />
+<col width="7%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>==</td>
+<td>Равно</td>
+<td>%3D%3D</td>
+<td>Возвращает только те результаты, когда время пользователя на странице было 10
+секунд
+<tt class="docutils literal"><span class="pre">filters=ga:timeOnPage%3D%3D10</span></tt></td>
+</tr>
+<tr class="row-even"><td>!=</td>
+<td>Не равно</td>
+<td>!%3D</td>
+<td>Вернуть результат, когда время пользователя на странице не равно 10 секунд
+<tt class="docutils literal"><span class="pre">filters=ga:timeOnPage!%3D10</span></tt></td>
+</tr>
+<tr class="row-odd"><td>&gt;</td>
+<td>Больше чем</td>
+<td>%3E</td>
+<td>Вернуть результаты, когда время пользователя на странице больше, чем 10
+секунд
+<tt class="docutils literal"><span class="pre">filters=ga:timeOnPage%3E10</span></tt></td>
+</tr>
+<tr class="row-even"><td>&lt;</td>
+<td>Меньше чем</td>
+<td>%3C</td>
+<td>Вернуть результаты, когда время пользователя на странице меньше чем 10 секунд
+<tt class="docutils literal"><span class="pre">filters=ga:timeOnPage%3C10</span></tt></td>
+</tr>
+<tr class="row-odd"><td>&gt;=</td>
+<td>Больше либо равно</td>
+<td>%3E%3D</td>
+<td>Вернуть результаты, когда время пользователя на странице больше либо равно 10
+<tt class="docutils literal"><span class="pre">filters=ga:timeOnPage%3E%3D10</span></tt></td>
+</tr>
+<tr class="row-even"><td>&lt;=</td>
+<td>Меньше либо равно</td>
+<td>%3C%3D</td>
+<td>Вернуть результаты, когда время пользователя на странице меньше либо равно 10
+<tt class="docutils literal"><span class="pre">filters=ga:timeOnPage%3C%3D10</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Операторы фильтрации для dimensions</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="22%" />
+<col width="7%" />
+<col width="64%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>==</td>
+<td>Точное совпадение</td>
+<td>%3D%3D</td>
+<td>Аггрегировать метрики, когда город равен Irvine
+<tt class="docutils literal"><span class="pre">filters=ga:city%3D%3DIrvine</span></tt></td>
+</tr>
+<tr class="row-even"><td>!=</td>
+<td>Не равно</td>
+<td>!%3D</td>
+<td>Аггрегировать метрики, когда город не равен Irvine
+<tt class="docutils literal"><span class="pre">filters=ga:city!%3DIrvine</span></tt></td>
+</tr>
+<tr class="row-odd"><td>=&#64;</td>
+<td>Содержит подстроку</td>
+<td>%3D&#64;</td>
+<td>Аггрегировать метрики, когда город содержит York
+<tt class="docutils literal"><span class="pre">filters=ga:city%3D&#64;York</span></tt></td>
+</tr>
+<tr class="row-even"><td>!&#64;</td>
+<td>Не содержит подстроку</td>
+<td>!&#64;</td>
+<td>Аггрегировать метрики, когда город не содержит York
+<tt class="docutils literal"><span class="pre">filters=ga:city!&#64;York</span></tt></td>
+</tr>
+<tr class="row-odd"><td>=~</td>
+<td>Содержит соответствие
+регулярному выражению</td>
+<td>%3D~</td>
+<td>Аггрегировать метрики, когда город начинается с New
+<tt class="docutils literal"><span class="pre">filters=ga:city%3D~%5ENew.*</span></tt>
+(%5E в URL кодируется из ^ символа)</td>
+</tr>
+<tr class="row-even"><td>!~</td>
+<td>Не содержит соответствие
+регулярному выражению</td>
+<td>!~</td>
+<td>Аггрегировать метрики, когда город не начинается с New
+<tt class="docutils literal"><span class="pre">filters=ga:city!~%5ENew.*</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Выражения фильтрации</strong></p>
+<p>Важные правила для составления выражений фильтрации:</p>
+<ul class="simple">
+<li>Символы должны быть url-кодированы</li>
+<li>Точка с запятой, запятая, и бекслеш должны быть экранированы обратной наклонной чертой,
+когда они появляются в выражении.</li>
+<li>В выражениях фильтрации можно использовать perl-совместимые регулярные выражения с помощью =~ и !~.
+Для их использования есть некоторые правила:<ol class="arabic">
+<li>Регулярное выражение длиннее 128 символов может привести к 400 Bad Request ответу от сервера.</li>
+<li>Регулярные выражение регистро-независимы</li>
+</ol>
+</li>
+</ul>
+<p><strong>Комбинирование фильтров</strong></p>
+<p>Фильтры могут комбинироваться с помощью OR и AND операторов булевой логики. Это позволяет эффективно расширить
+лимит 128 символов в выражении фильтра.</p>
+<p>Оператор OR определяется использованием символа (,).
+Например, <tt class="docutils literal"><span class="pre">ga:country==United%20States,ga:country==Canada</span></tt></p>
+<p>Оператор AND определяется использованием символа (;).
+Например, <tt class="docutils literal"><span class="pre">ga:country==United%20States;ga:browser==Firefox</span></tt></p>
+</div></blockquote>
+<p><strong>segment</strong></p>
+<p><strong>samplingLevel</strong></p>
+<blockquote>
+<div><p>Необходимо использовать данный параметр, чтобы установить уровень дискретизации (кол-во сеансов, используемых
+для рассчета результата). Допустимые значения:</p>
+<p><strong>DEFAULT</strong> - возвращает ответ с размером выборки, которая уравновешивает скорость и точность.</p>
+<p><strong>FASTER</strong> - возвращает быстрый отклик с меньши размером выборки.</p>
+<p><strong>HIGHER_PRECISION</strong> - возвращает более точный ответ, используя больший размер выборки, но это может привести
+к медленному ответу.</p>
+<p>По умолчанию используется уровень DEFAULT.</p>
+</div></blockquote>
+<p><strong>start-index</strong></p>
+<blockquote>
+<div>Если не указан, начальным индексом является 1 (Результат начинает с первой строки, а не с нулевой).
+Данный параметр необходимо использовать в качестве механизма нумерации страниц вместе с параметром max-results
+для ситуаций, когда totalResults превышает 10 000 и необходимо извлечь строки от 10 001.</div></blockquote>
+<p><strong>max-results</strong></p>
+<blockquote>
+<div>Максимальное количество строк в ответе. По умолчанию используется 10 000.</div></blockquote>
+<p><strong>output</strong></p>
+<blockquote>
+<div><p>Данный параметр используется уста установки типы вывода данных. Допустимые значения:</p>
+<p><strong>JSON</strong> - используется по умолчанию и выводит ответ в JSON объекте в свойстве rows.</p>
+<p><strong>dataTable</strong> - выводит в dataTable свойстве Data Table объект. Данный объект описан по следующей ссылке
+<a class="reference external" href="https://developers.google.com/chart/interactive/docs/datatables_dataviews#datatablesdataviews">https://developers.google.com/chart/interactive/docs/datatables_dataviews#datatablesdataviews</a></p>
+</div></blockquote>
+<p><strong>fields</strong></p>
+<blockquote>
+<div><p>Указывает поля, содержащиеся в ответе. Значение необходимо указывать с помощью XPath синтаксиса.
+Поддерживаемый синтаксис описан ниже:</p>
+<ul class="simple">
+<li>Используйте запятую, чтобы выбрать несколько полей.</li>
+<li>Используйте a/b, чтобы выбрать b, находящийся в области поля с.</li>
+<li>Используйте саб-селектор, чтобы указать конкретный набор под-полей с помощью скобок ( ).
+Например <tt class="docutils literal"><span class="pre">fields=columnHeaders(name,dataType)</span></tt> вернет только name и dataType поля в columnHeaders массиве.</li>
+</ul>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to coin32&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="response.html"
+                        title="next chapter">Ответ</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/request.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="response.html" title="Ответ"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to coin32’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">coin32 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Istergul.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
